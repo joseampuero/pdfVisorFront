@@ -1,0 +1,13 @@
+{
+    "Home": {
+        "HomeTitle": "PDF VISOR"
+    },
+
+    "Components":{
+        "Dropzone": {
+            "DragAndDropTxt": "Arrastre y suelte los archivos aquí, o haga clic para seleccionar archivos",
+            "DragAndDropFooter": "Archivos",
+            "BtnUploadFile": "Cargar archivo"
+        }
+    }
+}
