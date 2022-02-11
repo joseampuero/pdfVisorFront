@@ -2,12 +2,15 @@ import axios from "axios";
 
 class FetchClient {
     static async get(request) {
-        axios
+        let response;
+        await axios
             .get(request.url)
             .then((res) => {
-                return res.data;
+                response = res.data;
             })
             .catch((err) => console.log(err));
+
+        return response;
     }
 }
 

@@ -6,10 +6,10 @@ class VisorService {
         console.log("VisorService", request);
 
         console.log("config object", config.baseUrl);
-        const response = await FetchClient.get({
-            url: `${config.baseUrl}/visor`,
-        });
-        console.log(response);
+
+        const response = await FetchClient.get({ url: `${config.baseUrl}/visor/` });
+
+        console.log("response:", response);
         return response;
     };
 }
