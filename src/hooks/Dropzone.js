@@ -1,11 +1,12 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import VisorService from "../services/VisorService";
 
 function Dropzone(props) {
     const { t } = useTranslation("Components");
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+    const navigate = useNavigate();
 
     const files = acceptedFiles.map((file) => (
         <li key={file.path}>
@@ -13,11 +14,13 @@ function Dropzone(props) {
         </li>
     ));
 
-    const getVisualization = async (potentialFileToUpload) => {
+    const handleRedirectActionToVisor = (potentialFileToUpload) => {
         if (Object.entries(potentialFileToUpload).length > 0) {
+            console.log("te vamos a rederigir a visor/");
+
             const file = potentialFileToUpload[Object.keys(potentialFileToUpload)[0]];
-            console.log("Llamado api", file);
-            await VisorService.getVisualizationAsync(file.path);
+
+            navigate(`/visor/${file.path}`);
         } else console.log("Levantar swal desde Dropzone!!");
     };
 
@@ -34,7 +37,7 @@ function Dropzone(props) {
             <div className="mb-4 mt-4">
                 <button
                     className="btn btn-primary"
-                    onClick={() => getVisualization({ ...acceptedFiles })}
+                    onClick={() => handleRedirectActionToVisor({ ...acceptedFiles })}
                 >
                     {t("Dropzone.BtnUploadFile")}
                 </button>
