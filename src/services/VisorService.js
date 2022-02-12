@@ -7,8 +7,6 @@ class VisorService {
         const response = await FetchClient.get({
             url: `/visor/${request}`,
         });
-
-        console.log("response:", response);
         return response;
     };
 }
