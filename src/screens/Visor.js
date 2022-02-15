@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
+import ContextMenuCustom from "../components/ContextMenuCustom";
 import VisorService from "../services/VisorService";
+import "../styles/styles.css";
 
 function Visor() {
     const { file } = useParams();
@@ -23,6 +25,7 @@ function Visor() {
 
     return (
         <div>
+            <ContextMenuCustom />
             <Container>
                 <h1>{file}</h1>
 

@@ -28,7 +28,7 @@ function Dropzone(props) {
         <section className="container">
             <div {...getRootProps({ className: "dropzone" })}>
                 <input {...getInputProps()} />
-                <p>{t("Dropzone.DragAndDropTxt")}</p>
+                <p className="dropzone-drag-text">{t("Dropzone.DragAndDropTxt")}</p>
             </div>
             <aside>
                 <h4>{t("Dropzone.DragAndDropFooter")}</h4>

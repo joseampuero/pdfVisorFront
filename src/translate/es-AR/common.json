@@ -8,6 +8,10 @@
             "DragAndDropTxt": "Arrastre y suelte los archivos aquí, o haga clic para seleccionar archivos",
             "DragAndDropFooter": "Archivos",
             "BtnUploadFile": "Cargar archivo"
+        },
+        "ContextMenuCustom":{
+            "CopyText": "Copiar",
+            "TranslateText": "Traducir"
         }
     }
 }
