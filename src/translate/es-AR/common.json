@@ -12,6 +12,10 @@
         "ContextMenuCustom":{
             "CopyText": "Copiar",
             "TranslateText": "Traducir"
+        },
+        "TranslationBox":{
+            "WaitTranslateText": "Traduciendo ...",
+            "DefaultText": "Seleccione texto para traducir"
         }
     }
 }

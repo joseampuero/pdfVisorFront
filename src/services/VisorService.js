@@ -9,6 +9,13 @@ class VisorService {
         });
         return response;
     };
+
+    static translateAsync = async (request) => {
+        const response = await FetchClient.get({
+            url: `/visor/translate/${request}`,
+        });
+        return response;
+    };
 }
 
 export default VisorService;

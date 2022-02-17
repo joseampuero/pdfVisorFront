@@ -2,8 +2,9 @@ import useContextMenuCustom from "../hooks/UseContextMenuCustom";
 import { VscCopy } from "react-icons/vsc";
 import { MdGTranslate } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import VisorService from "../services/VisorService";
 
-const ContextMenuCustom = () => {
+const ContextMenuCustom = ({ setShowDefaultComponent, setShowWaitForTranslation, setText }) => {
     const { anchorPoint, show, bufferText } = useContextMenuCustom();
     const { t } = useTranslation("Components");
 
@@ -11,9 +12,18 @@ const ContextMenuCustom = () => {
         console.log("---- Este metodo es para copiar --- no implementado");
     };
 
-    const handleClickTranslate = () => {
-        if (bufferText !== "") {
-            console.log("traducir texto seleccionado ---> llamar api con: ", bufferText);
+    const handleClickTranslate = async () => {
+        if (bufferText.trim() !== "") {
+            setShowWaitForTranslation(true);
+
+            console.log("palabra a traducir: ", bufferText);
+            const parsedBufferText = bufferText.replace("\n", " ").trim();
+            const translation = await VisorService.translateAsync(parsedBufferText);
+            console.log("resultado de la traduccion: ", translation.text);
+
+            setText(translation.text);
+            setShowDefaultComponent(false);
+            setShowWaitForTranslation(false);
         }
     };
 
@@ -34,7 +44,7 @@ const ContextMenuCustom = () => {
                 </div>
                 <hr />
                 <div className="menu-item">
-                    <span>Copy</span>
+                    <span>Otras</span>
                     <i className="menu-item-icon">
                         <VscCopy />
                     </i>

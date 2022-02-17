@@ -16,6 +16,7 @@
 
   .menu-item:hover{
     background-color: #d4e4f3;
+    cursor: pointer;
   }
 
   .menu-item-icon{
@@ -29,3 +30,15 @@
   .dropzone-drag-text{
     cursor: pointer;
   }
+
+  .translation-box-default{
+    color: gray;
+  }
+
+  .translation-box{
+    color: rgb(56, 51, 51);
+  }
+
+.visor-body-main{
+  padding: 100px;
+}
