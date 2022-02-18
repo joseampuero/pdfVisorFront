@@ -7,10 +7,11 @@ function Dropzone(props) {
     const { t } = useTranslation("Components");
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
     const navigate = useNavigate();
+    const mbRelativeValue = Math.pow(10, 6);
 
     const files = acceptedFiles.map((file) => (
         <li key={file.path}>
-            {file.path} - {file.size} bytes
+            {file.path} - {(file.size / mbRelativeValue).toFixed(2)} MB
         </li>
     ));
 
@@ -36,7 +37,7 @@ function Dropzone(props) {
             </aside>
             <div className="mb-4 mt-4">
                 <button
-                    className="btn btn-primary"
+                    className="btn btn-dark"
                     onClick={() => handleRedirectActionToVisor({ ...acceptedFiles })}
                 >
                     {t("Dropzone.BtnUploadFile")}

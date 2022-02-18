@@ -1,6 +1,6 @@
 {
     "Home": {
-        "HomeTitle": "PDF VISOR"
+        "HomeTitle": "PDF Interpreter"
     },
 
     "Components":{
@@ -14,6 +14,7 @@
             "TranslateText": "Traducir"
         },
         "TranslationBox":{
+            "AppTitle": "PDF Interpreter",
             "WaitTranslateText": "Traduciendo ...",
             "DefaultText": "Seleccione texto para traducir"
         }

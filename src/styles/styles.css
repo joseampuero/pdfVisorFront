@@ -1,44 +1,68 @@
+.home-title{
+  font-family: system-ui;
+}
+
 .menu {
-    font-size: 14px;
-    background-color: #fff;
-    border-radius: 2px;
-    padding: 5px 0 5px 0;
-    width: 150px;
-    height: auto;
-    margin: 0;
-  /* use absolute positioning  */
-    position: absolute;
-    list-style: none;
-    box-shadow: 0 0 20px 0 #ccc;
-    opacity: 1;
-    transition: opacity 0.5s linear;
-  }
+  font-size: 14px;
+  background-color: #363738;
+  color: floralwhite;
+  border-radius: 2px;
+  padding: 5px 0 5px 0;
+  width: 150px;
+  height: auto;
+  margin: 0;
+/* use absolute positioning  */
+  position: absolute;
+  list-style: none;
+  box-shadow: 0 0 20px 0 #ccc;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  z-index: 1;
+}
 
-  .menu-item:hover{
-    background-color: #d4e4f3;
-    cursor: pointer;
-  }
+.menu-item:hover{
+  background-color: dimgrey;
+  cursor: pointer;
+}
 
-  .menu-item-icon{
-    margin-left: 70px
-  }
+.menu-item-icon{
+  margin-left: 70px
+}
 
-  .menu-item-icon-translate{
-    margin-left: 60px
-  }
+.menu-item-icon-translate{
+  margin-left: 60px
+}
 
-  .dropzone-drag-text{
-    cursor: pointer;
-  }
+.dropzone-drag-text{
+  cursor: pointer;
+}
 
-  .translation-box-default{
-    color: gray;
-  }
+.translation-box-default{
+  color: gray;
+}
 
-  .translation-box{
-    color: rgb(56, 51, 51);
-  }
+.translation-box{
+  color: rgb(56, 51, 51);
+}
+
+.translation-box-navbar{
+  background-color: #111111;
+}
 
 .visor-body-main{
   padding: 100px;
+}
+
+.visor-body-text{
+  font-size: larger;
+  font-family: initial;
+}
+
+.visor-enviroment{
+  background-color: #363738;
+}
+
+::selection{
+  background-color: #FF4500;
+  color: #fff;
 }

@@ -9,7 +9,7 @@ const ContextMenuCustom = ({ setShowDefaultComponent, setShowWaitForTranslation,
     const { t } = useTranslation("Components");
 
     const handleClickCopy = () => {
-        console.log("---- Este metodo es para copiar --- no implementado");
+        navigator.clipboard.writeText(bufferText);
     };
 
     const handleClickTranslate = async () => {
@@ -44,10 +44,8 @@ const ContextMenuCustom = ({ setShowDefaultComponent, setShowWaitForTranslation,
                 </div>
                 <hr />
                 <div className="menu-item">
-                    <span>Otras</span>
-                    <i className="menu-item-icon">
-                        <VscCopy />
-                    </i>
+                    <span> ... </span>
+                    <i className="menu-item-icon"></i>
                 </div>
             </div>
         );

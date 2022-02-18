@@ -8,8 +8,8 @@ const TranslationBox = ({ showDefaultBox, showWaitForTranslation, text }) => {
     const { t } = useTranslation("Components");
 
     return (
-        <Navbar bg="dark" variant="dark" fixed="top">
-            <Navbar.Brand href="/">PDF VISOR</Navbar.Brand>
+        <Navbar className="translation-box-navbar" variant="dark" fixed="top">
+            <Navbar.Brand href="/">{t("TranslationBox.AppTitle")}</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav col-10">
                 <Nav className="col-12">
