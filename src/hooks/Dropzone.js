@@ -3,7 +3,7 @@ import { useDropzone } from "react-dropzone";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function Dropzone(props) {
+function Dropzone() {
     const { t } = useTranslation("Components");
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
     const navigate = useNavigate();
