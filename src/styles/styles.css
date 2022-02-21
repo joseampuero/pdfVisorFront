@@ -1,3 +1,7 @@
+.dropzone-drag-text{
+  cursor: pointer;
+}
+
 .home-title{
   font-family: system-ui;
 }
@@ -33,10 +37,6 @@
   margin-left: 60px
 }
 
-.dropzone-drag-text{
-  cursor: pointer;
-}
-
 .translation-box-default{
   color: gray;
 }
@@ -64,8 +64,8 @@
 }
 
 .visor-page{
-  padding-left: 15%;
-  padding-right: 15%;
+  padding-left: 2%;
+  padding-right: 2%;
 }
 
 .visor-enviroment{
