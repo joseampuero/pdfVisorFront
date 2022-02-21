@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import Dropzone from "../hooks/Dropzone";
+import Dropzone from "../components/Dropzone";
 
 function Home() {
     const { t } = useTranslation("Home");

@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import ContextMenuCustom from "../components/ContextMenuCustom";
@@ -12,15 +11,15 @@ import VisorSerializer from "../serializers/visorSerializer";
 
 function Visor() {
     const { file } = useParams();
-    const [pdfText, setPdfText] = useState(null);
+    const [pdfText, setPdfText] = useState([]);
     const [showDefaultBox, setShowDefaultBox] = useState(true);
     const [showWaitForTranslation, setShowWaitForTranslation] = useState(false);
     const [translatedText, setTranslatedText] = useState(null);
     const [showSpinner, setShowSpinner] = useState(false);
-    const [indexKey, setIndexKey] = useState(0);
+    // const [indexKey, setIndexKey] = useState(0);
 
     useEffect(() => {
-        if (pdfText != null) return;
+        if (pdfText.length !== 0) return;
 
         console.log("Llamado api", file);
         const getVisualization = async () => {
@@ -28,7 +27,8 @@ function Visor() {
 
             let loading = true;
             let index = 0;
-            while (loading && index < 40) {
+            let bufferText = [];
+            while (loading) {
                 const pdfTextResponse = await VisorService.getVisualizationAsync(
                     new VisorSerializer(file, index, index + 10).buildRequest()
                 );
@@ -37,8 +37,9 @@ function Visor() {
                 if (pdfTextResponse.content === null || pdfTextResponse.content.length === 0)
                     loading = false;
 
-                setPdfText(pdfTextResponse.content);
-                setIndexKey(index);
+                bufferText = bufferText.concat(pdfTextResponse.content);
+                setPdfText(bufferText);
+
                 index === 0 && setShowSpinner(false);
                 console.log("pagina ", index);
 
@@ -47,7 +48,7 @@ function Visor() {
         };
 
         getVisualization();
-    });
+    }, []);
 
     return (
         <div className={showSpinner ? "" : "visor-enviroment"}>
@@ -88,20 +89,23 @@ function Visor() {
                         )}
                     </Card.Body>
                 </Card>
-                {pdfText != null &&
+                {!showSpinner &&
                     pdfText.map((page, index) => {
                         return (
                             <Card
-                                className="mt-2"
-                                id={`page-${index + indexKey}`}
-                                key={`page-${index + indexKey}`}
+                                className="mt-2 visor-page"
+                                id={`page-${index}`}
+                                key={`page-${index}`}
                             >
                                 <Card.Body>
                                     <div
-                                        className="content visor-body-text"
+                                        className="content visor-page-text"
                                         dangerouslySetInnerHTML={{ __html: page }}
                                     ></div>
                                 </Card.Body>
+                                <Card.Footer className="visor-page-footer text-muted">
+                                    {index}
+                                </Card.Footer>
                             </Card>
                         );
                     })}

@@ -53,9 +53,19 @@
   padding: 100px;
 }
 
-.visor-body-text{
+.visor-page-footer{
+  background-color: white;
+  text-align: center;
+}
+
+.visor-page-text{
   font-size: larger;
   font-family: initial;
+}
+
+.visor-page{
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
 .visor-enviroment{
