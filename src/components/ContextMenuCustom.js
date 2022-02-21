@@ -4,7 +4,13 @@ import { MdGTranslate } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import VisorService from "../services/VisorService";
 
-const ContextMenuCustom = ({ setShowDefaultComponent, setShowWaitForTranslation, setText }) => {
+const ContextMenuCustom = ({
+    setShowDefaultComponent,
+    setShowWaitForTranslation,
+    setTranslatedText,
+    setBufferHistory,
+    bufferHistory,
+}) => {
     const { anchorPoint, show, bufferText } = useContextMenuCustom();
     const { t } = useTranslation("Components");
 
@@ -21,9 +27,10 @@ const ContextMenuCustom = ({ setShowDefaultComponent, setShowWaitForTranslation,
             const translation = await VisorService.translateAsync(parsedBufferText);
             console.log("resultado de la traduccion: ", translation.text);
 
-            setText(translation.text);
+            setTranslatedText(translation.text);
             setShowDefaultComponent(false);
             setShowWaitForTranslation(false);
+            setBufferHistory([...bufferHistory, parsedBufferText]);
         }
     };
 

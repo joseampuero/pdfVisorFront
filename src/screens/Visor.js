@@ -9,6 +9,7 @@ import "../styles/styles.css";
 import VisorSerializer from "../serializers/visorSerializer";
 import PageLazyLoad from "../components/PageLazyLoad";
 import LoadingSpinner from "../components/LoadingSpinner";
+import History from "../components/History";
 
 function Visor() {
     const { file } = useParams();
@@ -17,6 +18,7 @@ function Visor() {
     const [showWaitForTranslation, setShowWaitForTranslation] = useState(false);
     const [translatedText, setTranslatedText] = useState(null);
     const [showSpinner, setShowSpinner] = useState(false);
+    const [bufferHistory, setBufferHistory] = useState([]);
 
     useEffect(() => {
         if (pdfText.length !== 0) return;
@@ -50,6 +52,7 @@ function Visor() {
 
     return (
         <div className={showSpinner ? "" : "visor-enviroment"}>
+            <History setTranslatedText={setTranslatedText} bufferHistory={bufferHistory} />
             <TranslationBox
                 showDefaultBox={showDefaultBox}
                 showWaitForTranslation={showWaitForTranslation}
@@ -58,7 +61,9 @@ function Visor() {
             <ContextMenuCustom
                 setShowDefaultComponent={setShowDefaultBox}
                 setShowWaitForTranslation={setShowWaitForTranslation}
-                setText={setTranslatedText}
+                setTranslatedText={setTranslatedText}
+                setBufferHistory={setBufferHistory}
+                bufferHistory={bufferHistory}
             />
             <Container className="visor-body-main">
                 <Card>
