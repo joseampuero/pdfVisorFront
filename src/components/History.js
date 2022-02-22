@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     ProSidebar,
     Menu,
@@ -11,7 +11,6 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { FaHistory, FaBars, FaGithubAlt } from "react-icons/fa";
 import VisorService from "../services/VisorService";
 import { useTranslation } from "react-i18next";
-import historyColors from "../constants/historyColors.json";
 import "../styles/sidebar.css";
 
 const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }) => {
@@ -31,48 +30,6 @@ const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }
 
         setTranslatedText(translation.text);
         setShowWaitForTranslation(false);
-    };
-
-    const shift = (value) => (value += 4);
-
-    const getTypeButton = (index) => {
-        if (historyColors.colors === null) return "btn-primary";
-
-        const offset = index % 28;
-        let range = 0;
-        if (offset >= range && offset < shift(range)) return "btn-dark";
-        else if (offset >= range && offset < shift(range)) return "btn-secondary";
-        else if (offset >= range && offset < shift(range)) return "btn-primary";
-        else if (offset >= range && offset < shift(range)) return "btn-info";
-        else if (offset >= range && offset < shift(range)) return "btn-success";
-        else if (offset >= range && offset < shift(range)) return "btn-warning";
-        else if (offset >= range && offset < shift(range)) return "btn-danger";
-    };
-
-    // const styleProperty = (color) => `${color}`;
-
-    const getStyleButton = (index) => {
-        const colors = historyColors.colors;
-        if (colors === null) return "";
-
-        const offsetForType = index % 28;
-        const offsetForColor = index % 4;
-        let range = 0;
-        debugger;
-        if (offsetForType >= range && offsetForType < shift(range))
-            return colors.dark[offsetForColor];
-        else if (offsetForType >= range && offsetForType < shift(range))
-            return colors.secondary[offsetForColor];
-        else if (offsetForType >= range && offsetForType < shift(range))
-            return colors.primary[offsetForColor];
-        else if (offsetForType >= range && offsetForType < shift(range))
-            return colors.info[offsetForColor];
-        else if (offsetForType >= range && offsetForType < shift(range))
-            return colors.success[offsetForColor];
-        else if (offsetForType >= range && offsetForType < shift(range))
-            return colors.warning[offsetForColor];
-        else if (offsetForType >= range && offsetForType < shift(range))
-            return colors.danger[offsetForColor];
     };
 
     return (
@@ -102,12 +59,12 @@ const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }
                             <Menu iconShape="square">
                                 {bufferHistory.map((sentence, index) => (
                                     <button
-                                        style={{ backgroundColor: getStyleButton(index) }}
-                                        className={`btn ${getTypeButton(index)} mt-2 mx-1`}
+                                        className={`btn ${sentence.class} mt-2 mx-1`}
+                                        style={{ backgroundColor: sentence.style }}
                                         key={`sentence-${index}`}
                                         onClick={handleClickTranslateFromHistory}
                                     >
-                                        {sentence}
+                                        {sentence.text}
                                     </button>
                                 ))}
                             </Menu>

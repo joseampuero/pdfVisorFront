@@ -2,6 +2,7 @@ import useContextMenuCustom from "../hooks/UseContextMenuCustom";
 import { VscCopy } from "react-icons/vsc";
 import { MdGTranslate } from "react-icons/md";
 import { useTranslation } from "react-i18next";
+import HistoryItem from "../types/HistoryItem";
 import VisorService from "../services/VisorService";
 
 const ContextMenuCustom = ({
@@ -30,8 +31,11 @@ const ContextMenuCustom = ({
             setTranslatedText(translation.text);
             setShowDefaultComponent(false);
             setShowWaitForTranslation(false);
-            if (parsedBufferText.length < 56)
-                setBufferHistory([...bufferHistory, parsedBufferText]);
+            if (parsedBufferText.length < 56) {
+                let amounutSentence = bufferHistory.length;
+                let item = new HistoryItem(parsedBufferText, amounutSentence);
+                setBufferHistory([...bufferHistory, item]);
+            }
         }
     };
 
