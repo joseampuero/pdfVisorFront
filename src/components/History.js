@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
     ProSidebar,
     Menu,
@@ -8,13 +8,13 @@ import {
     SidebarContent,
 } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { FaHistory, FaArrowAltCircleRight } from "react-icons/fa";
-import { FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
-import { GiAbstract050, GiConsoleController } from "react-icons/gi";
+import { FaHistory, FaBars, FaGithubAlt } from "react-icons/fa";
 import VisorService from "../services/VisorService";
+import { useTranslation } from "react-i18next";
 import "../styles/sidebar.css";
 
-const History = ({ setTranslatedText, bufferHistory, setShowWaitForTranslation }) => {
+const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }) => {
+    const { t } = useTranslation("Components");
     const [menuCollapse, setMenuCollapse] = useState(false);
 
     const menuIconClick = () => {
@@ -35,21 +35,23 @@ const History = ({ setTranslatedText, bufferHistory, setShowWaitForTranslation }
     return (
         <>
             <div id="header">
-                {/* collapsed props to change menu size using menucollapse state */}
                 <ProSidebar collapsed={menuCollapse}>
                     <SidebarHeader>
                         <div className="logotext" onClick={menuIconClick}>
-                            {/* Icon change using menucollapse state */}
                             <p>
-                                <i>{menuCollapse ? <FaArrowAltCircleRight /> : <FaHistory />}</i>
+                                {menuCollapse ? (
+                                    <i className="mx-2">
+                                        <FaBars />
+                                    </i>
+                                ) : (
+                                    <i>
+                                        <FaHistory />
+                                    </i>
+                                )}
                                 <span className="mx-4">
-                                    {menuCollapse ? "" : "Historial de busqueda"}
+                                    {menuCollapse ? "" : t("History.SearchHistory")}
                                 </span>
                             </p>
-                        </div>
-                        <div className="closemenu" onClick={menuIconClick}>
-                            {/* changing menu collapse icon on click */}
-                            {menuCollapse ? <FiArrowRightCircle /> : <FiArrowLeftCircle />}
                         </div>
                     </SidebarHeader>
                     <SidebarContent>
@@ -57,7 +59,7 @@ const History = ({ setTranslatedText, bufferHistory, setShowWaitForTranslation }
                             <Menu iconShape="square">
                                 {bufferHistory.map((sentence, index) => (
                                     <button
-                                        className="btn-primary btn mt-2 mx-1"
+                                        className="btn btn-primary mt-2 mx-1"
                                         key={`sentence-${index}`}
                                         onClick={handleClickTranslateFromHistory}
                                     >
@@ -67,11 +69,15 @@ const History = ({ setTranslatedText, bufferHistory, setShowWaitForTranslation }
                             </Menu>
                         )}
                     </SidebarContent>
-                    <SidebarFooter>
-                        <Menu iconShape="square">
-                            <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-                        </Menu>
-                    </SidebarFooter>
+                    {(bufferHistory.length === 0 || menuCollapse) && (
+                        <SidebarFooter>
+                            <Menu iconShape="square">
+                                <MenuItem className="footer-item-main" icon={<FaGithubAlt />}>
+                                    {t("History.FooterText")}
+                                </MenuItem>
+                            </Menu>
+                        </SidebarFooter>
+                    )}
                 </ProSidebar>
             </div>
         </>

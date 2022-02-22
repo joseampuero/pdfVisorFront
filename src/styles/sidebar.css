@@ -30,7 +30,7 @@
 }
 #header .pro-sidebar-inner .pro-sidebar-layout {
 	overflow-y: hidden;
-	height: 100vh;
+	height: 100vh; /*fijar q onda esto por defecto esta en 100*/
 }
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
 	font-size: 20px;
@@ -59,10 +59,15 @@
 	padding: 20px;
 }
 #header .pro-sidebar-content{
-	flex-grow: 0.87;
+	flex-grow: 0.89;
 }
 @media only screen and (max-width: 720px) {
 	html {
 		overflow: hidden;
    }
+}
+
+.footer-item-main svg{
+	width: 2em;
+	height: 2em;
 }

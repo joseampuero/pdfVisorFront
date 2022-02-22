@@ -30,7 +30,8 @@ const ContextMenuCustom = ({
             setTranslatedText(translation.text);
             setShowDefaultComponent(false);
             setShowWaitForTranslation(false);
-            setBufferHistory([...bufferHistory, parsedBufferText]);
+            if (parsedBufferText.length < 56)
+                setBufferHistory([...bufferHistory, parsedBufferText]);
         }
     };
 

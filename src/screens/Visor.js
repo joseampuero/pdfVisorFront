@@ -52,7 +52,11 @@ function Visor() {
 
     return (
         <div className={showSpinner ? "" : "visor-enviroment"}>
-            <History setTranslatedText={setTranslatedText} bufferHistory={bufferHistory} />
+            <History
+                setTranslatedText={setTranslatedText}
+                setShowWaitForTranslation={setShowWaitForTranslation}
+                bufferHistory={bufferHistory}
+            />
             <TranslationBox
                 showDefaultBox={showDefaultBox}
                 showWaitForTranslation={showWaitForTranslation}
