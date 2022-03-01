@@ -1,17 +1,12 @@
 import { useState } from "react";
-import {
-    ProSidebar,
-    Menu,
-    MenuItem,
-    SidebarHeader,
-    SidebarFooter,
-    SidebarContent,
-} from "react-pro-sidebar";
+import { ProSidebar, SidebarHeader, SidebarFooter, SidebarContent } from "react-pro-sidebar";
 import "react-pro-sidebar/dist/css/styles.css";
-import { FaHistory, FaBars, FaGithubAlt } from "react-icons/fa";
 import VisorService from "../services/VisorService";
 import { useTranslation } from "react-i18next";
 import "../styles/sidebar.css";
+import HistoryHeader from "./HistoryHeader";
+import HistoryContent from "./HistoryContent";
+import HistoryFooter from "./HistoryFooter";
 
 const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }) => {
     const { t } = useTranslation("Components");
@@ -37,46 +32,23 @@ const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }
             <div id="header">
                 <ProSidebar collapsed={menuCollapse}>
                     <SidebarHeader>
-                        <div className="logotext" onClick={menuIconClick}>
-                            <p>
-                                {menuCollapse ? (
-                                    <i className="mx-2">
-                                        <FaBars />
-                                    </i>
-                                ) : (
-                                    <i>
-                                        <FaHistory />
-                                    </i>
-                                )}
-                                <span className="mx-4">
-                                    {menuCollapse ? "" : t("History.SearchHistory")}
-                                </span>
-                            </p>
-                        </div>
+                        <HistoryHeader
+                            menuIconClick={menuIconClick}
+                            menuCollapse={menuCollapse}
+                            t={t}
+                        />
                     </SidebarHeader>
                     <SidebarContent>
                         {!menuCollapse && (
-                            <Menu iconShape="square">
-                                {bufferHistory.map((sentence, index) => (
-                                    <button
-                                        className={`btn ${sentence.class} mt-2 mx-1`}
-                                        style={{ backgroundColor: sentence.style }}
-                                        key={`sentence-${index}`}
-                                        onClick={handleClickTranslateFromHistory}
-                                    >
-                                        {sentence.text}
-                                    </button>
-                                ))}
-                            </Menu>
+                            <HistoryContent
+                                bufferHistory={bufferHistory}
+                                handleClickTranslateFromHistory={handleClickTranslateFromHistory}
+                            />
                         )}
                     </SidebarContent>
                     {(bufferHistory.length === 0 || menuCollapse) && (
                         <SidebarFooter>
-                            <Menu iconShape="square">
-                                <MenuItem className="footer-item-main" icon={<FaGithubAlt />}>
-                                    {t("History.FooterText")}
-                                </MenuItem>
-                            </Menu>
+                            <HistoryFooter t={t} />
                         </SidebarFooter>
                     )}
                 </ProSidebar>
