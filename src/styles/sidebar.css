@@ -30,7 +30,7 @@
 }
 #header .pro-sidebar-inner .pro-sidebar-layout {
 	overflow-y: hidden;
-	height: 100vh; /*fijar q onda esto por defecto esta en 100*/
+	height: 98vh; /*default 100*/
 }
 #header .pro-sidebar-inner .pro-sidebar-layout .logotext p {
 	font-size: 20px;
@@ -60,6 +60,9 @@
 }
 #header .pro-sidebar-content{
 	flex-grow: 0.89;
+	overflow: scroll;
+	height: 1px; /* for correct scroll operation */
+    overflow-x: hidden;
 }
 @media only screen and (max-width: 720px) {
 	html {
@@ -71,3 +74,12 @@
 	width: 2em;
 	height: 2em;
 }
+
+#header ::-webkit-scrollbar { width: 2px; height: 3px;}
+::-webkit-scrollbar { width: 5px; height: 3px;}
+::-webkit-scrollbar-button {  background-color: #666; }
+::-webkit-scrollbar-track {  background-color: #9d9d9e;}
+::-webkit-scrollbar-track-piece { background-color: #363738;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #9d9d9e;}
+::-webkit-resizer { background-color: #666;}

@@ -19,6 +19,7 @@ function Visor() {
     const [translatedText, setTranslatedText] = useState(null);
     const [showSpinner, setShowSpinner] = useState(false);
     const [bufferHistory, setBufferHistory] = useState([]);
+    const [menuCollapse, setMenuCollapse] = useState(false);
 
     useEffect(() => {
         if (pdfText.length !== 0) return;
@@ -55,7 +56,9 @@ function Visor() {
             <History
                 setTranslatedText={setTranslatedText}
                 setShowWaitForTranslation={setShowWaitForTranslation}
+                setMenuCollapse={setMenuCollapse}
                 bufferHistory={bufferHistory}
+                menuCollapse={menuCollapse}
             />
             <TranslationBox
                 showDefaultBox={showDefaultBox}
@@ -69,7 +72,7 @@ function Visor() {
                 setBufferHistory={setBufferHistory}
                 bufferHistory={bufferHistory}
             />
-            <Container className="visor-body-main">
+            <Container className={menuCollapse ? "visor-body-main" : "visor-body-main-shift-left"}>
                 <Card>
                     <Card.Title className="mt-2 mx-3">
                         <h1>{file}</h1>

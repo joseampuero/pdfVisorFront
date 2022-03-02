@@ -8,9 +8,14 @@ import HistoryHeader from "./HistoryHeader";
 import HistoryContent from "./HistoryContent";
 import HistoryFooter from "./HistoryFooter";
 
-const History = ({ setTranslatedText, setShowWaitForTranslation, bufferHistory }) => {
+const History = ({
+    setTranslatedText,
+    setShowWaitForTranslation,
+    setMenuCollapse,
+    bufferHistory,
+    menuCollapse,
+}) => {
     const { t } = useTranslation("Components");
-    const [menuCollapse, setMenuCollapse] = useState(false);
 
     const menuIconClick = () => {
         menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
