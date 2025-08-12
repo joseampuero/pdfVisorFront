@@ -14,6 +14,19 @@ class FetchClient {
 
         return response;
     }
+
+    static async post(request) {
+        let response;
+
+        await http
+            .post(request.url, request.data)
+            .then((res) => {
+                response = res.data;
+            })
+            .catch((err) => console.log(err));
+
+        return response;
+    }
 }
 
 const http = axios.create({

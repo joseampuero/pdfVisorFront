@@ -10,9 +10,15 @@ class VisorService {
         return response;
     };
 
-    static translateAsync = async (request) => {
-        const response = await FetchClient.get({
-            url: `/visor/translate/${request}`,
+    static translateAsync = async (text, direction = "en-es") => {
+        console.log("🚀 Traduciendo:", text);
+
+        const response = await FetchClient.post({
+            url: `/visor/translate/`,
+            data: {
+                sentence: text,
+                direction: direction,
+            },
         });
         return response;
     };

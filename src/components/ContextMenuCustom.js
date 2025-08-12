@@ -23,18 +23,29 @@ const ContextMenuCustom = ({
         if (bufferText.trim() !== "") {
             setShowWaitForTranslation(true);
 
-            console.log("palabra a traducir: ", bufferText);
-            const parsedBufferText = bufferText.replace("\n", " ").trim();
-            const translation = await VisorService.translateAsync(parsedBufferText);
-            console.log("resultado de la traduccion: ", translation.text);
+            try {
+                console.log("📝 Texto a traducir:", bufferText);
+                const parsedBufferText = bufferText.replace(/\n/g, " ").trim();
 
-            setTranslatedText(translation.text);
-            setShowDefaultComponent(false);
-            setShowWaitForTranslation(false);
-            if (parsedBufferText.length < 56) {
-                let amounutSentence = bufferHistory.length;
-                let item = new HistoryItem(parsedBufferText, amounutSentence);
-                setBufferHistory([...bufferHistory, item]);
+                const translation = await VisorService.translateAsync(parsedBufferText, "en-es");
+
+                console.log("✅ Resultado de la traducción:", translation.text);
+
+                setTranslatedText(translation.text);
+                setShowDefaultComponent(false);
+                setShowWaitForTranslation(false);
+
+                // Guardar en historial (solo frases cortas)
+                if (parsedBufferText.length < 56) {
+                    let amountSentence = bufferHistory.length;
+                    let item = new HistoryItem(parsedBufferText, amountSentence);
+                    setBufferHistory([...bufferHistory, item]);
+                }
+            } catch (error) {
+                console.error("❌ Error traduciendo:", error);
+                setTranslatedText("Error: No se pudo traducir el texto");
+                setShowDefaultComponent(false);
+                setShowWaitForTranslation(false);
             }
         }
     };
