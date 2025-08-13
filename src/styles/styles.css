@@ -1,4 +1,4 @@
-/* styles.css - Versión limpia sin estilos de History y TranslationBox */
+/* styles.css - Estilos generales y del visor actual */
 
 /* Estilos básicos */
 .dropzone-drag-text {
@@ -74,27 +74,6 @@
   color: #fff;
 }
 
-/* Párrafos clickeables */
-.clickable-paragraph {
-  cursor: pointer;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-  line-height: 1.6;
-}
-
-.clickable-paragraph:hover {
-  background-color: #f8f9fa;
-  transform: translateX(2px);
-}
-
-.clickable-paragraph.selected {
-  border: 2px solid #007bff;
-  background-color: #e3f2fd;
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
-}
-
 /* Layout principal de dos paneles */
 .visor-environment {
   height: 100vh;
@@ -109,7 +88,7 @@
 }
 
 .workspace {
-  flex: 8;  /* Aumentado para dar más espacio al contenido */
+  flex: 8;
   overflow-y: auto;
   transition: flex 0.3s ease;
 }
@@ -127,163 +106,11 @@
   transition: flex 0.3s ease;
 }
 
-/* Smart Area */
-.smart-area {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.smart-area-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
-  background: #f8f9fa;
-}
-
-.action-label {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #666;
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
-
-.close-btn:hover {
-  background: #e9ecef;
-}
-
-.smart-area-content {
-  padding: 0;
-  flex: 1;
-  overflow-y: auto;
-}
-
-/* Secciones de texto */
-.text-section {
-  margin-bottom: 20px;
-}
-
-.text-label {
-  font-size: 12px;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: #6c757d;
-  margin-bottom: 5px;
-  letter-spacing: 0.5px;
-}
-
-.original-text {
-  color: #333;
-  margin-bottom: 20px;
-  font-size: 15px;
-  line-height: 1.6;
-  padding: 15px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 3px solid #6c757d; 
-}
-
-.translated-text {
-  margin-bottom: 30px;
-  font-size: 15px;
-  line-height: 1.6;
-  padding: 15px;
-  background: #f0f8ff; 
-  border-radius: 8px;
-  border-left: 3px solid #007bff; 
-  color: #0056b3; 
-}
-
+/* Indicador de carga general */
 .loading-indicator {
   color: #6c757d;
   text-align: center;
   padding: 10px;
-}
-
-/* Contenedor de escritura */
-.typing-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  padding: 0;
-  margin: 0;
-  border-radius: 0;
-}
-
-.sentence-pairs-container {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Mejorar el estilo de los pares de oraciones */
-.sentence-pair {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.sentence-pair:not(:last-child) {
-  border-bottom: 1px solid #eee;
-}
-
-.sentence-original {
-  padding: 15px;
-  background: #fff;
-  border-radius: 8px;
-  color: #333;
-  font-size: 16px;
-  line-height: 1.5;
-  border-left: 3px solid #6c757d;
-  min-height: 20px;
-}
-
-.sentence-translation {
-  padding: 15px;
-  background: #f0f8ff;
-  border-radius: 8px;
-  color: #0056b3;
-  font-size: 16px;
-  line-height: 1.5;
-  border-left: 3px solid #007bff;
-  min-height: 20px;
-}
-
-.typing-text {
-  white-space: pre-wrap;
-}
-
-.empty-state {
-  text-align: center;
-  color: #6c757d;
-  padding: 20px;
 }
 
 /* Animaciones */

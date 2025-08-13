@@ -1,6 +1,6 @@
 // components/SmartArea.js - Versión mejorada con renderizado dinámico
 import React, { useState, useEffect, useRef } from "react";
-import "../styles/styles.css";
+import "../styles/smart-area.css";
 
 const SmartArea = ({ originalText, translatedText, isLoading, onClose }) => {
     // En lugar de almacenar todos los pares, solo almacenamos los que ya se han procesado

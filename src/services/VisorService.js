@@ -22,6 +22,11 @@ class VisorService {
         });
         return response;
     };
+
+    // Nuevo método para obtener la URL del PDF
+    static getPdfUrl = (file) => {
+        return `http://127.0.0.1:43302/visor/pdf/${file}`;
+    };
 }
 
 export default VisorService;
