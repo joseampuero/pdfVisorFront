@@ -1,25 +1,28 @@
+// Visor.js - Versión simplificada
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container } from "reactstrap";
 import ContextMenuCustom from "../components/ContextMenuCustom";
-import TranslationBox from "../components/TranslationBox";
+import SmartArea from "../components/SmartArea";
 import VisorService from "../services/VisorService";
 import Card from "react-bootstrap/Card";
 import "../styles/styles.css";
 import VisorSerializer from "../serializers/visorSerializer";
 import PageLazyLoad from "../components/PageLazyLoad";
 import LoadingSpinner from "../components/LoadingSpinner";
-import History from "../components/History";
 
 function Visor() {
     const { file } = useParams();
     const [pdfText, setPdfText] = useState([]);
-    const [showDefaultBox, setShowDefaultBox] = useState(true);
-    const [showWaitForTranslation, setShowWaitForTranslation] = useState(false);
     const [translatedText, setTranslatedText] = useState(null);
     const [showSpinner, setShowSpinner] = useState(false);
     const [bufferHistory, setBufferHistory] = useState([]);
-    const [menuCollapse, setMenuCollapse] = useState(false);
+    const [showWaitForTranslation, setShowWaitForTranslation] = useState(false);
+
+    // Nuevo estado para el párrafo seleccionado
+    const [selectedParagraph, setSelectedParagraph] = useState(null);
+    // Estado para controlar la visibilidad del panel lateral
+    const [showSmartArea, setShowSmartArea] = useState(false);
 
     useEffect(() => {
         if (pdfText.length !== 0) return;
@@ -49,38 +52,88 @@ function Visor() {
         };
 
         getVisualization();
-    }, []);
+    }, [file, pdfText.length]);
+
+    // Handler para manejar clicks en párrafos
+    const handleParagraphClick = async (paragraphText, paragraphId) => {
+        console.log("🎯 Párrafo clickeado:", paragraphText);
+        console.log("📍 ID:", paragraphId);
+
+        // Actualizar el párrafo seleccionado
+        setSelectedParagraph({
+            text: paragraphText,
+            id: paragraphId,
+        });
+
+        // Mostrar el panel lateral
+        setShowSmartArea(true);
+
+        // Mostrar indicador de carga
+        setShowWaitForTranslation(true);
+
+        try {
+            // Llamar al servicio de traducción
+            const translation = await VisorService.translateAsync(paragraphText, "en-es");
+
+            // Actualizar el texto traducido
+            setTranslatedText(translation.text);
+            setShowWaitForTranslation(false);
+
+            // Agregar al historial si el texto no es muy largo
+            if (paragraphText.length < 100) {
+                const newHistoryItem = {
+                    text: paragraphText,
+                    translation: translation.text,
+                    id: paragraphId,
+                };
+                setBufferHistory([...bufferHistory, newHistoryItem]);
+            }
+        } catch (error) {
+            console.error("❌ Error traduciendo párrafo:", error);
+            setTranslatedText("Error al traducir el párrafo");
+            setShowWaitForTranslation(false);
+        }
+    };
 
     return (
-        <div className={showSpinner ? "" : "visor-enviroment"}>
-            <History
-                setTranslatedText={setTranslatedText}
-                setShowWaitForTranslation={setShowWaitForTranslation}
-                setMenuCollapse={setMenuCollapse}
-                bufferHistory={bufferHistory}
-                menuCollapse={menuCollapse}
-            />
-            <TranslationBox
-                showDefaultBox={showDefaultBox}
-                showWaitForTranslation={showWaitForTranslation}
-                text={translatedText}
-            />
+        <div className={showSpinner ? "" : "visor-environment"}>
+            {/* Mantenemos ContextMenuCustom por si lo necesitas */}
             <ContextMenuCustom
-                setShowDefaultComponent={setShowDefaultBox}
                 setShowWaitForTranslation={setShowWaitForTranslation}
                 setTranslatedText={setTranslatedText}
                 setBufferHistory={setBufferHistory}
                 bufferHistory={bufferHistory}
             />
-            <Container className={menuCollapse ? "visor-body-main" : "visor-body-main-shift-left"}>
-                <Card>
-                    <Card.Title className="mt-2 mx-3">
-                        <h1>{file}</h1>
-                    </Card.Title>
-                    <Card.Body>{showSpinner && <LoadingSpinner />}</Card.Body>
-                </Card>
-                {!showSpinner && <PageLazyLoad text={pdfText} />}
-            </Container>
+
+            {/* Layout principal con dos paneles */}
+            <div className="main-layout">
+                {/* Panel izquierdo - Workspace */}
+                <div className="workspace workspace-expanded">
+                    <Container>
+                        <Card>
+                            <Card.Title className="mt-2 mx-3">
+                                <h1>{file}</h1>
+                            </Card.Title>
+                            <Card.Body>{showSpinner && <LoadingSpinner />}</Card.Body>
+                        </Card>
+                        {!showSpinner && (
+                            <PageLazyLoad text={pdfText} onParagraphClick={handleParagraphClick} />
+                        )}
+                    </Container>
+                </div>
+
+                {/* Panel derecho - Smart Area */}
+                {showSmartArea && (
+                    <div className="smart-area-container">
+                        <SmartArea
+                            originalText={selectedParagraph?.text}
+                            translatedText={translatedText}
+                            isLoading={showWaitForTranslation}
+                            onClose={() => setShowSmartArea(false)}
+                        />
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
